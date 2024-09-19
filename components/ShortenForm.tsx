@@ -2,12 +2,54 @@
 import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { toast } from 'react-toastify';
 
 const ShortenForm = () => {
   const [url, setUrl] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**
+   * Handles the submission of the URL shortening form.
+   *
+   * @param {React.FormEvent} e The form event.
+   * @returns {Promise<void>} A promise that resolves when the form has been submitted.
+   */
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+
+    try {
+      // Send a POST request to the `/api/shorten` endpoint with the URL as the body.
+      const response = await fetch("/api/shorten", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url }),
+      });
+
+      if (!response.ok) {
+        // Check if the response status is 409 (Conflict) indicating the URL is already in the database
+        if (response.status === 409) {
+          toast.error("URL is already in the database.");
+          return;
+        }
+        throw new Error("Network response was not ok");
+      }
+
+      // Get the response data and log it to the console.
+      const data = await response.json();
+      console.log(data);
+
+      // Reset the URL state after submitting the form.
+      setUrl("");
+      
+      // Show a toast notification with the shortened URL.
+      toast.info(`Shortened URL: ${data.shortCode}`);
+    } catch (error) {
+      // Log any errors to the console.
+      console.error("Error shortening URL:", error);
+      toast.error("An error occurred while shortening the URL.");
+    }
+
   };
 
   return (
