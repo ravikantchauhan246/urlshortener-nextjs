@@ -43,7 +43,7 @@ const ShortenForm = () => {
       setUrl("");
       
       // Show a toast notification with the shortened URL.
-      toast.info(`Shortened URL: ${data.shortCode}`);
+      toast.success(`URL shortened successfully: ${data.shortCode}`);
     } catch (error) {
       // Log any errors to the console.
       console.error("Error shortening URL:", error);
