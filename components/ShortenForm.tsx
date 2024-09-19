@@ -23,7 +23,7 @@ const ShortenForm = () => {
           placeholder="Enter URL to shorten"
           required
         />
-        <Button className="w-full p-2" type="submit">
+        <Button className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary" type="submit">
           Shorten Url
         </Button>
       </div>
