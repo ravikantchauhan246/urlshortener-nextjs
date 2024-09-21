@@ -6,8 +6,12 @@ import { toast } from 'react-toastify';
 import { CoolMode } from "./magicui/cool-mode";
 
 
+interface ShortenFormProps {
+  handleUrlShortened: () => void;
+}
 
-const ShortenForm = () => {
+
+const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
   const [url, setUrl] = useState<string>("");
 
   /**
@@ -44,6 +48,9 @@ const ShortenForm = () => {
 
       // Reset the URL state after submitting the form.
       setUrl("");
+
+      // Call the handleUrlShortened function passed in as a prop.
+      handleUrlShortened();
       
       // Show a toast notification with the shortened URL.
       toast.success(`URL shortened successfully: ${data.shortCode}`);
