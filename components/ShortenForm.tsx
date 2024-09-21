@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from 'react-toastify';
+import { CoolMode } from "./magicui/cool-mode";
+
+
 
 const ShortenForm = () => {
   const [url, setUrl] = useState<string>("");
@@ -55,7 +58,9 @@ const ShortenForm = () => {
   return (
     <form onSubmit={handleSubmit} className="mb-4">
       <div className="space-y-4 ">
+        
         <Input
+          
           value={url}
           onChange={(e) => {
             setUrl(e.target.value);
@@ -65,9 +70,12 @@ const ShortenForm = () => {
           placeholder="Enter URL to shorten"
           required
         />
+        <CoolMode>
         <Button className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary" type="submit">
+        
           Shorten Url
         </Button>
+        </CoolMode>
       </div>
     </form>
   );
