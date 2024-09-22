@@ -19,6 +19,7 @@ export default function LetterPullup({
 
   const pullupVariant = {
     initial: { y: 100, opacity: 0 },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     animate: (i: any) => ({
       y: 0,
       opacity: 1,
