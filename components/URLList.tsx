@@ -5,10 +5,12 @@ import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { CopyIcon } from '@radix-ui/react-icons'
 import { EyeIcon } from 'lucide-react'
-import SparklesText from './magicui/sparkles-text'
+
 import NumberTicker from './magicui/number-ticker'
 import { toast } from 'react-toastify'
 import Tooltip from '@mui/material/Tooltip';
+
+
 
 
 type Url = {
@@ -26,10 +28,13 @@ const URLList = () => {
         return `${process.env.NEXT_PUBLIC_BASE_URL}/${code}`
     }
 
+    
+
 
     
 
     const fetchUrls = async () => {
+        
         try{
             const response = await fetch('/api/urls')
             const data = await response.json()
@@ -45,13 +50,18 @@ const URLList = () => {
             fetchUrls();
     },[])
 
+
+
     const handleCopyUrl = (code:string)=>{
         navigator.clipboard.writeText(shortenerUrl(code)).then(()=>toast.success("Copied\n" + shortenerUrl(code)))
     } 
+    
   return (
-    <div>
-        {/* <h2 className='text-2xl font-bold mb-2'>Recent URLS</h2> */}
-        <h2><SparklesText className='text-2xl font-normal mb-2' text='Recent URLS'/></h2>
+
+    
+        <div>
+        <h2 className='text-2xl font-bold mb-2'>Recent URLS</h2>
+        
         <ul className='space-y-2 '>
         {urls.map((url) => {
             return (
@@ -65,7 +75,9 @@ const URLList = () => {
                         </Button>
                         </Tooltip>
                         <span className='flex items-center gap-1'>
+                            <Tooltip title="Views">
                             <EyeIcon className='w-4 h-4' />
+                            </Tooltip>
                             {url.visits === 0 ? `${url.visits}` : <NumberTicker value={url.visits}/>} views
                            
                         </span>
@@ -75,7 +87,9 @@ const URLList = () => {
         })}
     
         </ul>
+        
     </div>
+    
   )
 }
 

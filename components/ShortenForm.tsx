@@ -13,6 +13,7 @@ interface ShortenFormProps {
 
 const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
   const [url, setUrl] = useState<string>("");
+  const [isLoading,setIsLoading] = useState<boolean>(false);
 
   /**
    * Handles the submission of the URL shortening form.
@@ -22,6 +23,7 @@ const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
    */
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    setIsLoading(true)
 
     try {
       // Send a POST request to the `/api/shorten` endpoint with the URL as the body.
@@ -58,6 +60,8 @@ const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
       // Log any errors to the console.
       console.error("Error shortening URL:", error);
       toast.error("An error occurred while shortening the URL.");
+    }finally{
+      setIsLoading(false)
     }
 
   };
@@ -78,9 +82,9 @@ const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
           required
         />
         <CoolMode>
-        <Button className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary" type="submit">
+        <Button className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary " type="submit" disabled={isLoading}>
         
-          Shorten Url
+          {isLoading ? "Shortening..." : "Shorten"}
         </Button>
         </CoolMode>
       </div>
