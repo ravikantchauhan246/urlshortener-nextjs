@@ -4,7 +4,7 @@ import "./globals.css";
 import React from 'react';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import FlickeringGrid from "@/components/magicui/flickering-grid";
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,15 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <FlickeringGrid
-        className="z-0 absolute inset-0 size-full"
-        squareSize={4}
-        gridGap={6}
-        color="#6B7280"
-        maxOpacity={0.3}
-        flickerChance={0.1}
         
-      />
         {children}
         <ToastContainer
         position="bottom-right"
