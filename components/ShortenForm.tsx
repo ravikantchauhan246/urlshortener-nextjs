@@ -82,7 +82,11 @@ const ShortenForm = ({handleUrlShortened}: ShortenFormProps) => {
           required
         />
         <CoolMode>
-        <Button className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary " type="submit" disabled={isLoading}>
+        <Button 
+          className="w-full p-2 h-12 font-semibold uppercase hover:bg-primary-foreground hover:text-primary" 
+          type="submit" 
+          disabled={isLoading || !url} // Disable if loading or URL is empty
+        >
         
           {isLoading ? "Shortening..." : "Shorten"}
         </Button>
